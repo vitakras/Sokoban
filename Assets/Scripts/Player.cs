@@ -27,25 +27,31 @@ public class Player : MonoBehaviour, Movable {
 		float sqrtRemainingDistance = (this.transform.position - end).sqrMagnitude;
 		isMoving = true;
 		Debug.Log(sqrtRemainingDistance);
+
 		// really small amount
 		while (sqrtRemainingDistance > float.Epsilon) {
-			Vector3 newPosition = Vector3.MoveTowards(this.transform.position, end, 1f * Time.deltaTime);
+			Vector3 newPosition = Vector3.MoveTowards(this.transform.position, end, this.inverseMoveTime * Time.deltaTime);
 			this.transform.position = newPosition;
 			sqrtRemainingDistance = (this.transform.position - end).sqrMagnitude;
 			yield return null;
-			//Debug.Log(sqrtRemainingDistance);
 		}
-		Debug.Log("here");
-		//isMoving = false;
+	}
+
+	public bool IsMoving() {
+		return this.isMoving;
 	}
 		
 	public bool Move(int xDir, int yDir) {
 		Vector3 end = this.transform.position + new Vector3(xDir, yDir, 0);
-		Debug.Log(end);
-		IEnumerator coroutine = SmoothMovement(end);
 
-		StartCoroutine(coroutine);
+		if (this.CanMove(end)) {
+			StartCoroutine(this.SmoothMovement(end));
+			return true;
+		}
+		return false;
+	}
 
-		return true;
+	protected bool CanMove(Vector3 end) {
+		return false;
 	}
 }
