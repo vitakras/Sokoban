@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour {
 		float x = Input.GetAxis("Horizontal");
 
 		if (x < 0) { // left
-			this.movable.Move( -1 * this.distanceMoveBy, 0);
+			this.movable.Move( -this.distanceMoveBy, 0);
 		} else if( x > 0) { // right
 			this.movable.Move(this.distanceMoveBy, 0);
 		} else {
 			float y = Input.GetAxis("Vertical");
 			if (y < 0) { // down
-				this.movable.Move(0, -1 * this.distanceMoveBy);
+				this.movable.Move(0, -this.distanceMoveBy);
 			} else if (y > 0) { // up
 				this.movable.Move(0, this.distanceMoveBy);
 			}
