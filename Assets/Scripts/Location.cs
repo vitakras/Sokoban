@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Location : MonoBehaviour {
+public class Location : MonoBehaviour
+{
 
 	public string ignoreTag = "Player";
 	private bool isOccupied = false;
 
-	void OnTriggerEnter2D(Collider2D collider) {
-		if (!collider.CompareTag(this.ignoreTag)) {
-			StartCoroutine(this.SetOccupied(collider));
+	void OnTriggerEnter2D (Collider2D collider)
+	{
+		if (!collider.CompareTag (this.ignoreTag)) {
+			StartCoroutine (this.SetOccupied (collider));
 		} else {
-			Debug.Log(string.Format("Ignoring GameObject with Tag {0}", this.ignoreTag));
+			Debug.Log (string.Format ("Ignoring GameObject with Tag {0}", this.ignoreTag));
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D collider) {
-		if (!collider.CompareTag(this.ignoreTag)) {
+	void OnTriggerExit2D (Collider2D collider)
+	{
+		if (!collider.CompareTag (this.ignoreTag)) {
 			this.isOccupied = false;
-			this.LocationUnOccupied();
+			this.LocationUnOccupied ();
 		} else {
-			Debug.Log(string.Format("Ignoring GameObject with Tag {0}", this.ignoreTag));
+			Debug.Log (string.Format ("Ignoring GameObject with Tag {0}", this.ignoreTag));
 		}
 	}
 
@@ -28,16 +31,17 @@ public class Location : MonoBehaviour {
 			return this.isOccupied;
 		}
 	}
-		
-	private IEnumerator SetOccupied(Collider2D collider) {
-		Movable movable = collider.GetComponent<Movable>();
+
+	private IEnumerator SetOccupied (Collider2D collider)
+	{
+		Movable movable = collider.GetComponent<Movable> ();
 		Vector2 myPosition = this.gameObject.transform.position;
 		Vector2 movablePosition;
 
 		if (movable != null) {
-			while(movable.IsMoving()) {
+			while (movable.IsMoving ()) {
 				movablePosition = collider.transform.position;
-				if (myPosition.Equals(movablePosition)) {
+				if (myPosition.Equals (movablePosition)) {
 					break;
 				}
 
@@ -45,24 +49,26 @@ public class Location : MonoBehaviour {
 			}
 
 			movablePosition = collider.transform.position;
-			if (myPosition.Equals(movablePosition)) {
+			if (myPosition.Equals (movablePosition)) {
 				this.isOccupied = true;
-				this.LocationOccupied();
+				this.LocationOccupied ();
 			}
 		}
 	}
 
-	private void LocationOccupied() {
+	private void LocationOccupied ()
+	{
 		EventManager eventManager = EventManager.intance;
 		if (eventManager) {
-			eventManager.TriggerEvent((int)EventType.LOCATION_OCCUPIED);
+			eventManager.TriggerEvent ((int)EventType.LOCATION_OCCUPIED);
 		}
 	}
 
-	private void LocationUnOccupied() {
+	private void LocationUnOccupied ()
+	{
 		EventManager eventManager = EventManager.intance;
 		if (eventManager) {
-			eventManager.TriggerEvent((int)EventType.LOCATION_UNOCCUPIED);
+			eventManager.TriggerEvent ((int)EventType.LOCATION_UNOCCUPIED);
 		}
 	}
 }
