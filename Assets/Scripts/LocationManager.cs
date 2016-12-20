@@ -14,7 +14,7 @@ public class LocationManager : MonoBehaviour {
 		int count = 0;
 
 		foreach(Location location in this.locations){
-			if (location.isOccupied){
+			if (location.IsOccupied){
 				count++;
 			}
 		}
