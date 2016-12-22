@@ -6,12 +6,12 @@ public class Movable : MonoBehaviour
 {
 
 	// Public Variables
-	public float moveTime = 0.1f;
+	public float speed = 3.0f;
 	public int collisionLayer = 1;
 
 	// Private Variables
 	private float inverseMoveTime;
-	public bool isMoving = false;
+	private bool isMoving = false;
 	private new Collider2D collider;
 	private int lastMoveX = 0;
 	private int lastMoveY = 0;
@@ -20,7 +20,6 @@ public class Movable : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		this.inverseMoveTime = 1f / moveTime;
 		this.isMoving = false;
 		this.collider = GetComponent<Collider2D> ();
 		Debug.Log (this.collider);
@@ -74,7 +73,7 @@ public class Movable : MonoBehaviour
 
 		// really small amount
 		while (sqrtRemainingDistance > float.Epsilon) {
-			Vector3 newPosition = Vector3.MoveTowards (this.transform.position, end, this.inverseMoveTime * Time.deltaTime);
+			Vector3 newPosition = Vector3.MoveTowards (this.transform.position, end, this.speed * Time.deltaTime);
 			this.transform.position = newPosition;
 			sqrtRemainingDistance = (this.transform.position - end).sqrMagnitude;
 			yield return null;
