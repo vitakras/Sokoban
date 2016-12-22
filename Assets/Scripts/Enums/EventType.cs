@@ -1,4 +1,5 @@
-﻿public enum EventType {
+﻿public enum EventType
+{
 	LOCATION_OCCUPIED,
 	LOCATION_UNOCCUPIED,
 	ALL_LOCATIONS_OCCUPIED

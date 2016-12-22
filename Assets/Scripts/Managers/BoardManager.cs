@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BoardManager : MonoBehaviour {
+public class BoardManager : MonoBehaviour
+{
 
 	public GameObject player;
 	public GameObject wall;
@@ -13,21 +14,22 @@ public class BoardManager : MonoBehaviour {
 	private int rows;
 	private int columns;
 
-	void BoadSetup(TextAsset textAsset) {
-		this.boardHolder = new GameObject("Board").transform;
+	void BoadSetup (TextAsset textAsset)
+	{
+		this.boardHolder = new GameObject ("Board").transform;
 
-		LevelReader levelReader = new LevelReader();
-		TileType[][] grid = levelReader.Load(textAsset);
+		LevelReader levelReader = new LevelReader ();
+		TileType[][] grid = levelReader.Load (textAsset);
 
-		this.rows=grid.Length;
-		this.columns= grid[0].Length;
+		this.rows = grid.Length;
+		this.columns = grid [0].Length;
 
-		for(int x = 0; x < columns; x++) {
-			for(int y = 0; y < rows; y++) {
-				GameObject toInstantiate = ObjectToInstantiate(grid[y][x]);
+		for (int x = 0; x < columns; x++) {
+			for (int y = 0; y < rows; y++) {
+				GameObject toInstantiate = ObjectToInstantiate (grid [y] [x]);
 
-				GameObject background = Instantiate(this.ground, new Vector3(x,y,1f), Quaternion.identity) as GameObject;
-				background.transform.SetParent(this.boardHolder);
+				GameObject background = Instantiate (this.ground, new Vector3 (x, y, 1f), Quaternion.identity) as GameObject;
+				background.transform.SetParent (this.boardHolder);
 
 				if (toInstantiate != null) {
 					//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
@@ -42,10 +44,11 @@ public class BoardManager : MonoBehaviour {
 
 	}
 
-	GameObject ObjectToInstantiate(TileType type) {
+	GameObject ObjectToInstantiate (TileType type)
+	{
 		GameObject gameObject = null;
 
-		switch(type) {
+		switch (type) {
 		case TileType.CRATE:
 			gameObject = this.crate;
 			break;
@@ -63,7 +66,8 @@ public class BoardManager : MonoBehaviour {
 		return gameObject;
 	}
 
-	public void SetupScene(TextAsset filename) {
-		BoadSetup(filename);
+	public void SetupScene (TextAsset filename)
+	{
+		BoadSetup (filename);
 	}
 }

@@ -2,7 +2,8 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class OnLevelComplete : MonoBehaviour {
+public class OnLevelComplete : MonoBehaviour
+{
 
 	void OnEnable ()
 	{
@@ -22,7 +23,8 @@ public class OnLevelComplete : MonoBehaviour {
 		}
 	}
 
-	private void LevelComplete() {
-		SceneManager.LoadScene(0);
+	private void LevelComplete ()
+	{
+		SceneManager.LoadScene (0);
 	}
 }
